@@ -1,3 +1,5 @@
+//@author Гудилин Андрей, гр.621702
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
