@@ -4,14 +4,34 @@
 
 using namespace std;
 
-/*
+/*Y
 -1 -1 -1  1
 -1 -1 -1 -1
--1  1  1  1
--1 -1  1  1
--1  1  1 -1
+ 1  1  1 -1
+-1 -1  1 -1
+-1  1 -1 -1
 -1 -1  1 -1
 -1 -1 -1  1
+*/
+
+/*X
+-1 -1 -1  1 -1
+-1 -1 -1  1 -1
+-1 -1 -1  1 -1
+-1 -1 -1  1 -1
+-1 -1 -1  1 -1
+-1 -1 -1  1 -1
+-1 -1 -1  1 -1
+*/
+
+/*X
+-1  1 -1  1 -1
+ 1 -1  1 -1  1
+-1  1 -1  1 -1
+ 1 -1  1 -1  1
+-1  1 -1  1 -1
+ 1 -1  1 -1  1
+-1  1 -1  1 -1
 */
 
 unsigned N;
@@ -101,6 +121,9 @@ bool checkTrained()
 				for (unsigned xy = 0; xy < xY; xy++)
 					tempY[yy][xy] = 0;
 
+			//cout << "X" << n << " begin" << endl;
+			//printPair(tempX, tempY);
+
 			for (unsigned i = 0; i < It; i++)
 			{
 				test = true;
@@ -140,6 +163,9 @@ bool checkTrained()
 				cout << "Network not trained X" << n << endl;
 				break;
 			}
+
+			//cout << "X" << n << endl;
+			//printPair(tempX, tempY);
 		}
 		{
 			for (unsigned yy = 0; yy < yY; yy++)
@@ -149,6 +175,9 @@ bool checkTrained()
 			for (unsigned yx = 0; yx < yX; yx++)
 				for (unsigned xx = 0; xx < xX; xx++)
 					tempX[yx][xx] = 0;
+
+			//cout << "Y" << n << " begin" << endl;
+			//printPair(tempX, tempY);
 
 			for (unsigned i = 0; i < It; i++)
 			{
@@ -188,6 +217,9 @@ bool checkTrained()
 				cout << "Network not trained Y" << n << endl;
 				break;
 			}
+
+			//cout << "Y" << n << endl;
+			//printPair(tempX, tempY);
 		}
 	}
 	return test;
@@ -444,25 +476,37 @@ int main()
 				for (unsigned xy = 0; xy < xY; xy++)
 					tempY[yy][xy] = 0;
 
+			system("cls");
+			cout << "You inputed X:" << endl;
+			printX(tempX);
+			//printY(tempY);
+			cout << "Start working..." << endl;
+
 			for (unsigned i = 0; i < It; i++)
 			{
 				if (stepToY())
 				{
+					printY(tempY);
+					cout << "Result: " << endl;
 					printPair(tempX, tempY);
 					int n = findX(tempX);
 					if (n < 0 || findY(tempY) != n) cout << "Not recognized" << endl;
-					else cout << "Its pair " << n << endl;;
+					else cout << "Its pair " << n << endl << endl;
 					break;
 				}
+				else printY(tempY);
 
 				if (stepToX())
 				{
+					printX(tempX);
+					cout << "Result: " << endl;
 					printPair(tempX, tempY);
 					int n = findX(tempX);
 					if (n < 0 || findY(tempY) != n) cout << "Not recognized" << endl;
-					else cout << "Its pair " << n << endl;
+					else cout << "Its pair " << n << endl << endl;
 					break;
 				}
+				else printX(tempX);
 			}
 		}
 		break;
@@ -477,32 +521,47 @@ int main()
 				for (unsigned xx = 0; xx < xX; xx++)
 					tempX[yx][xx] = 0;
 
+			system("cls");
+			cout << "You inputed Y:" << endl;
+			//printX(tempX);
+			printY(tempY);
+			cout << "Start working..." << endl;
+
 			for (unsigned i = 0; i < It; i++)
 			{
 				if (stepToX())
 				{
+					printX(tempX);
+					cout << "Result: " << endl;
 					printPair(tempX, tempY);
 					int n = findX(tempX);
 					if (n < 0 || findY(tempY) != n) cout << "Not recognized" << endl;
-					else cout << "Its pair " << n << endl;
+					else cout << "Its pair " << n << endl << endl;
 					break;
 				}
+				else printX(tempX);
 
 				if (stepToY())
 				{
+					printY(tempY);
+					cout << "Result: " << endl;
 					printPair(tempX, tempY);
 					int n = findX(tempX);
 					if (n < 0 || findY(tempY) != n) cout << "Not recognized" << endl;
-					else cout << "Its pair " << n << endl;
+					else cout << "Its pair " << n << endl << endl;
 					break;
 				}
+				else printY(tempY);
 			}
 		}
 		break;
 		case '3':
 		{
 			for (unsigned n = 0; n < N; n++)
+			{
+				cout << "Pair " << n << ":" << endl;
 				printPair(X[n], Y[n]);
+			}
 			printWeights();
 			cout << endl;
 			break;
